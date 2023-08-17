@@ -44,8 +44,25 @@ const getOne = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (id !== req.user.id) return res.status(401).json({ message: 'Unauthorized user' });
+    await blogPostService.update({ ...req.body }, { where: { id } });
+    const updated = await blogPostService.getOne(
+      {
+        where: { id },
+        include: [
+          'categories', 
+          { model: User, as: 'user', attributes: { exclude: ['password'] } }],
+      },
+    );
+    return res.status(200).json(updated);
+  } catch ({ message, code }) {
+    return res.status(code || 500).json({ message });
+  }
+};
+
 module.exports = {
-  saveOne,
-  getAll,
-  getOne,
+  saveOne, getAll, getOne, update,
 };

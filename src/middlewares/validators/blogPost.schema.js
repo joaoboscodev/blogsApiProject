@@ -1,9 +1,16 @@
 const Joi = require('joi');
 
-const blogPostSchema = Joi.object({
+const create = Joi.object({
   title: Joi.string().required(),
   content: Joi.string().required(),
   categoryIds: Joi.array().required(),
 });
 
-module.exports = blogPostSchema;
+const update = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
+module.exports = {
+  create, update,
+};

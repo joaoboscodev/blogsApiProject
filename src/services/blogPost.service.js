@@ -20,6 +20,11 @@ const getBlogPostById = async (options) => {
   return blogPost;
 };
 
+const update = async (values, options) => {
+  const blogPost = await BlogPost.update(values, options);
+  return blogPost;
+};
+
 const saveOne = async ({ userId, title, content, categoryIds }) => {
   const categories = await Category.findAll({ where: { id: categoryIds } });
 
@@ -47,4 +52,5 @@ module.exports = {
   getOne,
   saveOne,
   getBlogPostById,
+  update,
 };
