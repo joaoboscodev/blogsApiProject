@@ -10,9 +10,13 @@ const getOne = async (options) => {
   return blogPost;
 };
 
-const getBlogPostById = async (id) => {
-  const blogPost = await BlogPost.findOne({ where: { id } });
-  if (!blogPost) return { error: 'BlogPost does not exist', status: 404 };
+const getBlogPostById = async (options) => {
+  const blogPost = await BlogPost.findOne(options);
+  if (!blogPost) {
+    const error = new Error('Post does not exist');
+    error.code = 404;
+    throw error;
+  }
   return blogPost;
 };
 

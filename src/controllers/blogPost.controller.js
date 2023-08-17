@@ -27,9 +27,21 @@ const getAll = async (req, res) => {
 };
 
 const getOne = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const blogPost = await blogPostService.getBlogPostById(id);
-  return res.status(200).json(blogPost);
+  try {
+    const id = parseInt(req.params.id, 10);
+    const blogPost = await blogPostService.getBlogPostById(
+      { 
+        where: { id },
+        include: [
+          'categories', 
+          { model: User, as: 'user', attributes: { exclude: ['password'] } }], 
+        },
+    );
+    console.log({ query: blogPost });
+    return res.status(200).json(blogPost);
+  } catch ({ message, code }) {
+    return res.status(code || 500).json({ message });
+  }
 };
 
 module.exports = {
