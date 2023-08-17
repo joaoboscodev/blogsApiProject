@@ -37,7 +37,9 @@ const saveOne = async (data) => {
 
 const getUserById = async (id) => {
   const user = await User.findOne({ where: { id } });
-  return user;
+  if (!user) return { error: 'User does not exist', status: 404 };
+  const { displayName, email, image } = user;
+  return { id, displayName, email, image };
 };
 
 module.exports = {
