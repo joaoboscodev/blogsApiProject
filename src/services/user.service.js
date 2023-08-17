@@ -42,9 +42,15 @@ const getUserById = async (id) => {
   return { id, displayName, email, image };
 };
 
+const deleteOne = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  await user.destroy();
+};
+
 module.exports = {
   getAll,
   getOne,
   saveOne,
   getUserById,
+  deleteOne,
 };

@@ -6,6 +6,12 @@ const saveOne = async (req, res) => {
   return res.status(status).json({ message, token });
 };
 
+const deleteMe = async (req, res) => {
+  const { id } = req.user;
+  await userService.deleteOne(id);
+  return res.status(204).json({});
+};
+
 const getAll = async (req, res) => {
   const userList = await userService.getAll({});
   return res.status(200).json(userList);
@@ -19,5 +25,5 @@ const getOne = async (req, res) => {
 };
 
 module.exports = {
-  saveOne, getAll, getOne,
+  saveOne, getAll, getOne, deleteMe,
 };
