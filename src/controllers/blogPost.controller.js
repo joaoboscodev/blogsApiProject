@@ -44,6 +44,17 @@ const getOne = async (req, res) => {
   }
 };
 
+const deleteOne = async (req, res) => {
+  try {
+    const postId = parseInt(req.params.id, 10);
+    const userId = req.user.id;
+    await blogPostService.deleteOne({ postId, userId });
+    return res.status(204).json({});
+  } catch ({ message, code }) {
+    return res.status(code || 500).json({ message });
+  }
+};
+
 const update = async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -64,5 +75,5 @@ const update = async (req, res) => {
 };
 
 module.exports = {
-  saveOne, getAll, getOne, update,
+  saveOne, getAll, getOne, update, deleteOne,
 };

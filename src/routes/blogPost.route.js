@@ -26,5 +26,10 @@ router.put(
   blogPostMiddleware.validateBlogPostUpdate,
   blogPostController.update,
 );
+router.delete(
+  '/:id',
+  authenticate,
+  blogPostController.deleteOne,
+);
 
 module.exports = router;

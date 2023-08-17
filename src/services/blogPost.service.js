@@ -47,10 +47,30 @@ const saveOne = async ({ userId, title, content, categoryIds }) => {
   return result;
 };
 
+const deleteOne = async ({ postId, userId }) => {
+  const options = { where: { id: postId } };
+  const blogPost = await BlogPost.findOne(options);
+
+  if (!blogPost) {
+    const error = new Error('Post does not exist');
+    error.code = 404;
+    throw error;
+  }
+
+  if (blogPost.userId !== userId) {
+    const error = new Error('Unauthorized user');
+    error.code = 401;
+    throw error;
+  }
+  const result = await blogPost.destroy();
+  return result;
+};
+
 module.exports = {
   getAll,
   getOne,
   saveOne,
   getBlogPostById,
   update,
+  deleteOne,
 };
