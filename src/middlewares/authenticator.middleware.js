@@ -5,7 +5,10 @@ const { userService } = require('../services');
 const secret = process.env.JWT_SECRET;
 
 function extractToken(bearerToken) {
-  return bearerToken.split(' ')[1];
+  if (bearerToken.includes('Bearer')) {
+    return bearerToken.split(' ')[1];
+  }
+  return bearerToken;
 }
 
 const authenticate = async (req, res, next) => {
