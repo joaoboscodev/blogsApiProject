@@ -6,6 +6,11 @@ const saveOne = async (req, res) => {
   return res.status(status).json({ message, token });
 };
 
+const getAll = async (req, res) => {
+  const userList = await userService.getAll({});
+  return res.status(200).json(userList);
+};
+
 module.exports = {
-  saveOne,
+  saveOne, getAll,
 };
