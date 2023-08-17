@@ -12,7 +12,17 @@ module.exports = {
       },
       title: Sequelize.STRING,
       content: Sequelize.STRING,
-      user_id: Sequelize.INTEGER,
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        field: 'user_id',
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
       published: {
         allowNull: false,
         type: Sequelize.DATE,
