@@ -5,7 +5,6 @@ const validateBlogPost = (req, res, next) => {
   if (error) {
     return res.status(400).json({ message: 'Some required fields are missing' });
   }
-
   next();
 };
 
@@ -18,5 +17,6 @@ const validateBlogPostUpdate = (req, res, next) => {
 };
 
 module.exports = {
-  validateBlogPost, validateBlogPostUpdate
+  validateBlogPost,
+  validateBlogPostUpdate,
 };
