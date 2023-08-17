@@ -12,7 +12,7 @@ module.exports = {
       },
       title: Sequelize.STRING,
       content: Sequelize.STRING,
-      user_id: {
+      userid: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onUpdate: 'CASCADE',
